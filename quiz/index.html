@@ -27,6 +27,11 @@
             <input type="radio" id="ans4" name="answer" class="answer" />
             <label for="ans4" id="option4">Answer option</label>
           </li>
+
+          <li>
+            <input type="radio" id="ans5" name="answer" class="answer" />
+            <label for="ans5" id="option5">Answer option</label>
+          </li>
         </ul>
         <button id="submit" class="btn">submit</button>
         <div id="showScore" class="scoreArea"></div>
@@ -35,33 +40,46 @@
     <script>
       var quizDB = [
         {
-          question: "Q.What is the capital of France?",
+          question: "Q1. What is the capital of France?",
 
           a: "Berlin",
           b: "Paris",
           c: "Madrid",
           d: "america",
+          e: "usa",
           ans: "ans2",
         },
 
         {
-          question: "Q.Which planet is known as the Red Planet?",
+          question: "Q2. Which planet is known as the Red Planet?",
 
           a: "Earth",
           b: "Mars",
           c: "Venus",
           d: "saturn",
+          e: "neptune",
           ans: "ans2",
         },
 
         {
-          question: "Q.What is the largest mammal in the world?",
+          question: "Q3. What is the largest mammal in the world?",
 
           a: "Elephant",
           b: "Blue Whale",
           c: "Giraffe",
           d: "tiger",
+          e: "crow",
           ans: "ans2",
+        },
+
+        {
+          question: "Q5. What is the currency of Brazil?",
+          a: "Euro",
+          b: "Yen",
+          c: "Real",
+          d: "Peso",
+          e: "dollar",
+          ans: "ans3", // Correct answer is the third option
         },
       ];
 
@@ -70,6 +88,8 @@
       const option2 = document.querySelector("#option2");
       const option3 = document.querySelector("#option3");
       const option4 = document.querySelector("#option4");
+      const option5 = document.querySelector("#option5");
+
       const submit = document.querySelector("#submit");
       const answers = document.querySelectorAll(".answer");
       const showScore = document.querySelector("#showScore");
@@ -85,6 +105,7 @@
         option2.innerText = questionList.b;
         option3.innerText = questionList.c;
         option4.innerText = questionList.d;
+        option5.innerText = questionList.e;
 
         // option3.innerText = questionList.c;
       };
@@ -98,37 +119,32 @@
           if (currentElement.checked) {
             answer = currentElement.id;
           }
-
-        
         });
         return answer;
       };
 
       submit.addEventListener("click", () => {
         const checkedAnswer = getCheckAnswer();
-        console.log(checkedAnswer)
+        console.log(checkedAnswer);
 
-        if(checkedAnswer === quizDB[questionCount].ans){
+        if (checkedAnswer === quizDB[questionCount].ans) {
           score++;
         }
 
         questionCount++;
 
-        if(questionCount < quizDB.length){
+        if (questionCount < quizDB.length) {
           loadQuestion();
-
-        } else{
+        } else {
           showScore.innerHTML = `
           <h3> you scrored  ${score}/${quizDB.length} </h3>
           <button class="btn" onclick="location.reload()"> Play Again  </button>
 
           `;
 
-          showScore.classList.remove('scoreArea');
+          showScore.classList.remove("scoreArea");
         }
-
-
-    });
+      });
     </script>
   </body>
 </html>
