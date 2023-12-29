@@ -16,22 +16,119 @@
             <label for="ans1" id="option1">Answer option</label>
           </li>
           <li>
-            <input type="radio" id="ans1" name="answer" class="answer" />
-            <label for="ans1" id="option1">Answer option</label>
+            <input type="radio" id="ans2" name="answer" class="answer" />
+            <label for="ans2" id="option2">Answer option</label>
           </li>
           <li>
-            <input type="radio" id="ans1" name="answer" class="answer" />
-            <label for="ans1" id="option1">Answer option</label>
+            <input type="radio" id="ans3" name="answer" class="answer" />
+            <label for="ans3" id="option3">Answer option</label>
           </li>
           <li>
-            <input type="radio" id="ans1" name="answer" class="answer" />
-            <label for="ans1" id="option1">Answer option</label>
+            <input type="radio" id="ans4" name="answer" class="answer" />
+            <label for="ans4" id="option4">Answer option</label>
           </li>
         </ul>
         <button id="submit" class="btn">submit</button>
         <div id="showScore" class="scoreArea"></div>
       </div>
     </div>
-    <script></script>
+    <script>
+      var quizDB = [
+        {
+          question: "Q.What is the capital of France?",
+
+          a: "Berlin",
+          b: "Paris",
+          c: "Madrid",
+          d: "america",
+          ans: "ans2",
+        },
+
+        {
+          question: "Q.Which planet is known as the Red Planet?",
+
+          a: "Earth",
+          b: "Mars",
+          c: "Venus",
+          d: "saturn",
+          ans: "ans2",
+        },
+
+        {
+          question: "Q.What is the largest mammal in the world?",
+
+          a: "Elephant",
+          b: "Blue Whale",
+          c: "Giraffe",
+          d: "tiger",
+          ans: "ans2",
+        },
+      ];
+
+      const question = document.querySelector(".question");
+      const option1 = document.querySelector("#option1");
+      const option2 = document.querySelector("#option2");
+      const option3 = document.querySelector("#option3");
+      const option4 = document.querySelector("#option4");
+      const submit = document.querySelector("#submit");
+      const answers = document.querySelectorAll(".answer");
+      const showScore = document.querySelector("#showScore");
+
+      let questionCount = 0;
+      let score = 0;
+
+      const loadQuestion = () => {
+        const questionList = quizDB[questionCount];
+        question.innerText = questionList.question;
+
+        option1.innerText = questionList.a;
+        option2.innerText = questionList.b;
+        option3.innerText = questionList.c;
+        option4.innerText = questionList.d;
+
+        // option3.innerText = questionList.c;
+      };
+
+      loadQuestion();
+
+      const getCheckAnswer = () => {
+        let answer;
+
+        answers.forEach((currentElement) => {
+          if (currentElement.checked) {
+            answer = currentElement.id;
+          }
+
+        
+        });
+        return answer;
+      };
+
+      submit.addEventListener("click", () => {
+        const checkedAnswer = getCheckAnswer();
+        console.log(checkedAnswer)
+
+        if(checkedAnswer === quizDB[questionCount].ans){
+          score++;
+        }
+
+        questionCount++;
+
+        if(questionCount < quizDB.length){
+          loadQuestion();
+
+        } else{
+          showScore.innerHTML = `
+          <h3> you scrored  ${score}/${quizDB.length} </h3>
+          <button class="btn" onclick="location.reload()"> Play Again  </button>
+
+          `;
+
+          showScore.classList.remove('scoreArea');
+        }
+
+
+    });
+    </script>
   </body>
 </html>
